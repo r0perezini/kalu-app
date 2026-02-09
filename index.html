@@ -1,103 +1,122 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <title>Kalu Audit Pro</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Kalu Audit Pro</title>
 
-        <!-- LIBS -->
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-        <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-            rel="stylesheet">
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
-            rel="stylesheet">
+    <!-- LIBS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-        
-        <link rel="stylesheet" href="kalu-app.css">
+    <link rel="stylesheet" href="kalu-app.css" />
+  </head>
 
-    </head>
-    <body class="antialiased select-none">
-<div id="system-loading"
-            class="fixed inset-0 bg-white z-[9999] flex flex-col items-center justify-center">
-            <div
-                class="w-12 h-12 border-4 border-slate-100 border-t-blue-600 rounded-full animate-spin mb-3"></div>
-            
+  <body class="antialiased select-none">
+    <!-- LOADER -->
+    <div
+      id="system-loading"
+      class="fixed inset-0 bg-white z-[9999] flex flex-col items-center justify-center"
+    >
+      <div
+        class="w-12 h-12 border-4 border-slate-100 border-t-blue-600 rounded-full animate-spin mb-3"
+      ></div>
+    </div>
 
-<!-- MOUNTS -->
-<div id="mount-login"></div>
-<div id="mount-app"></div>
-<div id="mount-modals"></div>
+    <!-- MOUNTS -->
+    <div id="mount-login"></div>
+    <div id="mount-app"></div>
+    <div id="mount-modals"></div>
 
-<script>
-(async function() {
-  async function get(url) {
-    const res = await fetch(url, { cache: "no-store" });
-    if (!res.ok) throw new Error("Falha ao carregar " + url + " (" + res.status + ")");
-    return await res.text();
-  }
-  function loadScript(src) {
-    return new Promise((resolve, reject) => {
-      const s = document.createElement("script");
-      s.src = src;
-      s.onload = () => resolve();
-      s.onerror = () => reject(new Error("Falha ao carregar script: " + src));
-      document.body.appendChild(s);
-    });
-  }
-  try {
-    // injeta HTML primeiro (DOM pronto antes do JS)
-    document.getElementById("mount-login").innerHTML = await get("./partials/01-login.html");
-    const parts = await Promise.all([
-      get("./partials/10-app-open.html"),
-      get("./partials/11-header.html"),
-      get("./partials/12-app-pre-tabs.html"),
-      get("./partials/20-tab-dashboard.html"),
-      get("./partials/21-tab-auditoria.html"),
-      get("./partials/22-tab-estoque.html"),
-      get("./partials/23-tab-manutencao.html"),
-      get("./partials/24-tab-perfil.html"),
-      get("./partials/30-app-post-tabs.html")
-    ]);
-    document.getElementById("mount-app").innerHTML = parts.join("\n");
-// 
+    <script>
+      (async function () {
+        async function get(url) {
+          const res = await fetch(url, { cache: "no-store" });
+          if (!res.ok)
+            throw new Error(
+              "Falha ao carregar " + url + " (" + res.status + ")"
+            );
+          return await res.text();
+        }
 
-    document.getElementById("mount-modals").innerHTML = await get("./partials/90-modals.html");
+        function loadScript(src) {
+          return new Promise((resolve, reject) => {
+            const s = document.createElement("script");
+            s.src = src;
+            s.onload = () => resolve();
+            s.onerror = () =>
+              reject(new Error("Falha ao carregar script: " + src));
+            document.body.appendChild(s);
+          });
+        }
 
-    // Agora carrega os JS na ordem
-    const scripts = [];
-    for (const src of scripts) {
-        // fallback: garante que o app inicialize
-if (typeof window.init === "function") await window.init();
-else if (typeof window.waitForLib === "function") window.waitForLib();
+        try {
+          // 1) injeta HTML primeiro
+          document.getElementById("mount-login").innerHTML = await get(
+            "./partials/01-login.html"
+          );
 
-      await loadScript(src);
-    }
-      // garante inicialização após DOM + scripts
-if (typeof window.init === "function") {
-  await window.init();
-} else if (typeof window.waitForLib === "function") {
-  window.waitForLib();
-} else {
-  console.warn("Não achei init() nem waitForLib().");
-}
+          const parts = await Promise.all([
+            get("./partials/10-app-open.html"),
+            get("./partials/11-header.html"),
+            get("./partials/12-app-pre-tabs.html"),
+            get("./partials/20-tab-dashboard.html"),
+            get("./partials/21-tab-auditoria.html"),
+            get("./partials/22-tab-estoque.html"),
+            get("./partials/23-tab-manutencao.html"),
+            get("./partials/24-tab-perfil.html"),
+            get("./partials/30-app-post-tabs.html"),
+          ]);
 
-  } catch (e) {
-  console.error(e);
-  document.body.innerHTML =
-    '<div style="padding:16px;font-family:system-ui;font-weight:800;color:#b91c1c">' +
-    'ERRO AO CARREGAR. Abra o Console (F12) e veja o detalhe.' +
-    '</div>';
-}
+          document.getElementById("mount-app").innerHTML = parts.join("\n");
 
-  }
-})();
-</script>
+          document.getElementById("mount-modals").innerHTML = await get(
+            "./partials/90-modals.html"
+          );
 
-<!-- SCRIPT -->
-</body>
+          // 2) agora carrega seus JS reais na ordem
+          const scripts = [
+            "./kalu-app.part01.js",
+            "./kalu-app.part02.js",
+            "./kalu-app.part03.js",
+            "./kalu-app.part04.js",
+          ];
+
+          for (const src of scripts) {
+            await loadScript(src);
+          }
+
+          // 3) garante inicialização após DOM + scripts
+          if (typeof window.init === "function") {
+            await window.init();
+          } else if (typeof window.waitForLib === "function") {
+            window.waitForLib();
+          } else {
+            console.warn("Não achei init() nem waitForLib().");
+          }
+
+          // 4) some com o loader
+          const loader = document.getElementById("system-loading");
+          if (loader) loader.style.display = "none";
+        } catch (e) {
+          console.error(e);
+          document.body.innerHTML =
+            '<div style="padding:16px;font-family:system-ui;font-weight:800;color:#b91c1c">' +
+            "ERRO AO CARREGAR. Abra o Console (F12) e veja o detalhe." +
+            "</div>";
+        }
+      })();
+    </script>
+  </body>
 </html>
