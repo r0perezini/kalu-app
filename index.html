@@ -77,6 +77,15 @@ else if (typeof window.waitForLib === "function") window.waitForLib();
 
       await loadScript(src);
     }
+      // garante inicialização após DOM + scripts
+if (typeof window.init === "function") {
+  await window.init();
+} else if (typeof window.waitForLib === "function") {
+  window.waitForLib();
+} else {
+  console.warn("Não achei init() nem waitForLib().");
+}
+
   } catch (e) {
     console.error(e);
     const l = document.getElementById("system-loading");
