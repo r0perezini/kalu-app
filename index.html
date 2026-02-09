@@ -71,6 +71,10 @@
     // Agora carrega os JS na ordem
     const scripts = [];
     for (const src of scripts) {
+        // fallback: garante que o app inicialize
+if (typeof window.init === "function") await window.init();
+else if (typeof window.waitForLib === "function") window.waitForLib();
+
       await loadScript(src);
     }
   } catch (e) {
