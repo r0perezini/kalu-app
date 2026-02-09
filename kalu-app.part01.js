@@ -12,11 +12,14 @@
                     detectSessionInUrl: false
                 }
             });
-            document.getElementById('system-loading')
-                .classList.add('hidden');
-            document.getElementById('login-screen')
-                .classList.remove('hidden')
-        }
+            document.getElementById('system-loading')?.classList.add('hidden');
+  // só mostra login se NÃO estiver no app
+                  if (!window.currentUser) {
+                    document.getElementById('mount-login')?.classList.remove('hidden');
+                    document.getElementById('login-screen')?.classList.remove('hidden');
+                    document.getElementById('app-container')?.classList.add('hidden');
+                  }
+                }
         window.handleLogin = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btn-login');
