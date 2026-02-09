@@ -40,11 +40,18 @@
     if (!res.ok) throw new Error("Falha ao carregar " + url + " (" + res.status + ")");
     return await res.text();
   }
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = src;
+      s.onload = () => resolve();
+      s.onerror = () => reject(new Error("Falha ao carregar script: " + src));
+      document.body.appendChild(s);
+    });
+  }
   try {
-    // login
+    // injeta HTML primeiro (DOM pronto antes do JS)
     document.getElementById("mount-login").innerHTML = await get("./partials/01-login.html");
-
-    // app (monta preservando a ordem original)
     const parts = await Promise.all([
       get("./partials/10-app-open.html"),
       get("./partials/11-header.html"),
@@ -56,24 +63,27 @@
       get("./partials/24-tab-perfil.html"),
       get("./partials/30-app-post-tabs.html")
     ]);
-    document.getElementById("mount-app").innerHTML = parts.join("
-");
+    document.getElementById("mount-app").innerHTML = parts.join("\n");
+// 
 
-    // modals
     document.getElementById("mount-modals").innerHTML = await get("./partials/90-modals.html");
+
+    // Agora carrega os JS na ordem
+    const scripts = [];
+    for (const src of scripts) {
+      await loadScript(src);
+    }
   } catch (e) {
     console.error(e);
     const l = document.getElementById("system-loading");
-    if (l) l.innerHTML = '<p style="font-family:Inter,system-ui; font-weight:800; color:#334155">Erro ao carregar telas. Veja o console.</p>';
+    if (l) {
+      l.classList.remove("hidden");
+      l.innerHTML = '<p style="font-family:Inter,system-ui; font-weight:800; color:#334155; padding:16px">Erro ao carregar telas/scripts. Abra o console (F12) e verifique se a pasta <b>partials</b> está correta.</p>';
+    }
   }
 })();
 </script>
 
 <!-- SCRIPT -->
-<script src="kalu-app.part01.js"></script>
-        <script src="kalu-app.part02.js"></script>
-        <script src="kalu-app.part03.js"></script>
-        <script src="kalu-app.part04.js"></script>
-
 </body>
 </html>
