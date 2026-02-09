@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Kalu Audit Pro</title>
+
+        <!-- LIBS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+            rel="stylesheet">
+
+        
+        <link rel="stylesheet" href="kalu-app.css">
+
+    </head>
+    <body class="antialiased select-none">
+<div id="system-loading"
+            class="fixed inset-0 bg-white z-[9999] flex flex-col items-center justify-center">
+            <div
+                class="w-12 h-12 border-4 border-slate-100 border-t-blue-600 rounded-full animate-spin mb-3"></div>
+            
+
+<!-- MOUNTS -->
+<div id="mount-login"></div>
+<div id="mount-app"></div>
+<div id="mount-modals"></div>
+
+<script>
+(async function() {
+  async function get(url) {
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) throw new Error("Falha ao carregar " + url + " (" + res.status + ")");
+    return await res.text();
+  }
+  try {
+    // login
+    document.getElementById("mount-login").innerHTML = await get("./partials/01-login.html");
+
+    // app (monta preservando a ordem original)
+    const parts = await Promise.all([
+      get("./partials/10-app-open.html"),
+      get("./partials/11-header.html"),
+      get("./partials/12-app-pre-tabs.html"),
+      get("./partials/20-tab-dashboard.html"),
+      get("./partials/21-tab-auditoria.html"),
+      get("./partials/22-tab-estoque.html"),
+      get("./partials/23-tab-manutencao.html"),
+      get("./partials/24-tab-perfil.html"),
+      get("./partials/30-app-post-tabs.html")
+    ]);
+    document.getElementById("mount-app").innerHTML = parts.join("
+");
+
+    // modals
+    document.getElementById("mount-modals").innerHTML = await get("./partials/90-modals.html");
+  } catch (e) {
+    console.error(e);
+    const l = document.getElementById("system-loading");
+    if (l) l.innerHTML = '<p style="font-family:Inter,system-ui; font-weight:800; color:#334155">Erro ao carregar telas. Veja o console.</p>';
+  }
+})();
+</script>
+
+<!-- SCRIPT -->
+<script src="kalu-app.part01.js"></script>
+        <script src="kalu-app.part02.js"></script>
+        <script src="kalu-app.part03.js"></script>
+        <script src="kalu-app.part04.js"></script>
+
+</body>
+</html>
