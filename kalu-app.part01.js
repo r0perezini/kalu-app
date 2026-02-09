@@ -82,8 +82,7 @@
                 await loadData(true);          // se for async, use await. se não, deixa sem.
 switchTab('dashboard');  
             }
-        };        window.logout=async()=>{await window.sb.auth.signOut();
-                                          document.getElementById("mount-login")?.classList.remove("hidden");window.location.reload()};
+        };       
         window.switchTab = async (t) => {
   // desativa todos
   document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
@@ -131,7 +130,8 @@ if (t === 'dashboard' && typeof window.loadDashboardKpis === 'function') {
 
   // volta para login
   document.getElementById('app-container')?.classList.add('hidden');
-  document.getElementById('login-screen')?.classList.remove('hidden');
+document.getElementById("mount-login")?.classList.remove("hidden");
+document.getElementById('login-screen')?.classList.remove('hidden');
 
   // opcional: limpa senha
   const p = document.getElementById('password');
