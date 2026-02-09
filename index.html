@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="kalu-app.css" />
   </head>
 
-  <body class="antialiased select-none">
+ <body class="antialiased select-none h-full">
     <!-- LOADER -->
     <div
       id="system-loading"
@@ -35,10 +35,10 @@
     </div>
 
     <!-- MOUNTS -->
-    <div id="mount-login"></div>
-    <div id="mount-app"></div>
-    <div id="mount-modals"></div>
-
+     <div id="mount-login" class="h-full"></div>
+  <div id="mount-app" class="h-full"></div>
+  <div id="mount-modals" class="h-full"></div>
+   
     <script>
       (async function () {
         async function get(url) {
