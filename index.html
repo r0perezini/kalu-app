@@ -87,12 +87,13 @@ if (typeof window.init === "function") {
 }
 
   } catch (e) {
-    console.error(e);
-    const l = document.getElementById("system-loading");
-    if (l) {
-      l.classList.remove("hidden");
-      l.innerHTML = '<p style="font-family:Inter,system-ui; font-weight:800; color:#334155; padding:16px">Erro ao carregar telas/scripts. Abra o console (F12) e verifique se a pasta <b>partials</b> está correta.</p>';
-    }
+  console.error(e);
+  document.body.innerHTML =
+    '<div style="padding:16px;font-family:system-ui;font-weight:800;color:#b91c1c">' +
+    'ERRO AO CARREGAR. Abra o Console (F12) e veja o detalhe.' +
+    '</div>';
+}
+
   }
 })();
 </script>
