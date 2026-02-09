@@ -1,0 +1,63 @@
+<div id="tab-maintenance"
+                    class="h-full flex flex-col hidden fade-in">
+                    <!-- Cabeçalho idêntico aos outros -->
+                    <div class="px-8 pt-4 pb-2 max-w-md mx-auto w-full md:max-w-none md:mx-0">
+                        <div class="flex justify-between items-center ">
+                            <div>
+                                <h1
+                                    class="text-2xl font-bold text-gray-800">Manutenções</h1>
+                                <p class="text-gray-500 text-sm">Controle de
+                                    reparos</p>
+                            </div>
+                            <!-- Botão de Adicionar (Estilo Padrão) -->
+                            <button onclick="window.openMaintForm()"
+                                class="w-10 h-10 bg-blue-600 rounded-full text-white shadow-lg flex items-center justify-center active:scale-95 transition-transform">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+
+                        <!-- FILTROS: linha 1 (escopo) -->
+                        <div class="flex gap-2 overflow-x-auto pb-2"
+                            id="maint-scope">
+                            <button onclick="setMaintScope('todas')"
+                                data-scope="todas"
+                                class="px-4 py-1 bg-blue-600 text-white rounded-full text-xs font-bold whitespace-nowrap">Todas</button>
+
+                            <button onclick="setMaintScope('minhas')"
+                                data-scope="minhas"
+                                class="px-4 py-1 bg-white border border-gray-200 text-gray-600 rounded-full text-xs font-bold whitespace-nowrap">Minhas</button>
+                        </div>
+
+                        <!-- FILTROS: linha 2 (status) -->
+                        <div class="flex gap-2 overflow-x-auto pb-2"
+                            id="maint-status">
+                            <button onclick="setMaintStatus('todos')"
+                                data-status="todos"
+                                class="px-4 py-1 bg-blue-600 text-white rounded-full text-xs font-bold whitespace-nowrap">Todos</button>
+
+                            <button onclick="setMaintStatus('pendente')"
+                                data-status="pendente"
+                                class="px-4 py-1 bg-white border border-gray-200 text-gray-600 rounded-full text-xs font-bold whitespace-nowrap">Pendente</button>
+
+                            <button onclick="setMaintStatus('fazendo')"
+                                data-status="fazendo"
+                                class="px-4 py-1 bg-white border border-gray-200 text-gray-600 rounded-full text-xs font-bold whitespace-nowrap">Fazendo</button>
+
+                            <button onclick="setMaintStatus('feito')"
+                                data-status="feito"
+                                class="px-4 py-1 bg-white border border-gray-200 text-gray-600 rounded-full text-xs font-bold whitespace-nowrap">Feito</button>
+                        </div>
+
+                    </div>
+
+                    <div id="maint-list-screen"
+                        class="scroll-area h-full px-5 pb-24 max-w-md mx-auto w-full md:max-w-none md:mx-0">
+                        <div id="maint-results"
+                            class="text-xs text-slate-500 pt-3"></div>
+                        <div id="maintenance-list" class="space-y-3 pt-1">
+                            <div id="maint-loading"
+                                class="text-center pt-4 pb-6 text-gray-400">Carregando...</div>
+                        </div>
+                    </div>
+
+                </div>

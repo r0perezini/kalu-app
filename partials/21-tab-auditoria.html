@@ -1,0 +1,36 @@
+<div id="tab-home" class="h-full flex flex-col fade-in">
+                    <!-- BOTÃO COM ESPAÇAMENTO POSITIVO (SEGURANÇA DE LAYOUT) -->
+                    <div class="px-5 pt-4 pb-2 max-w-md mx-auto w-full md:max-w-none md:mx-0">
+                        <button onclick="goToAudit()"
+                            class="w-full bg-white rounded-[1.2rem] p-5 shadow-lg flex items-center gap-4 active:scale-95 transition-transform border border-slate-100">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-inner"><i
+                                    class="fas fa-plus"></i></div>
+                            <div class="text-left flex-1">
+                                <h3
+                                    class="font-bold text-slate-800 text-base">Nova
+                                    Auditoria</h3>
+                                <p
+                                    class="text-slate-400 text-[11px] font-medium">Iniciar
+                                    checklist</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-slate-300"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex-1 overflow-hidden flex flex-col">
+                        <div
+                            class="px-6 pt-2 pb-3 flex justify-between items-end max-w-md mx-auto w-full md:max-w-none md:mx-0">
+                            <h3
+                                class="font-bold text-slate-700 text-sm">Histórico</h3>
+                            <button onclick="loadHistory()"
+                                class="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded hover:bg-blue-100 uppercase"><i
+                                    class="fas fa-sync-alt mr-1"></i>
+                                Atualizar</button>
+                        </div>
+                        <div
+                            class="scroll-area h-full px-5 pb-24 max-w-md mx-auto w-full md:max-w-none md:mx-0">
+                            <div id="history-list" class="space-y-3 pt-1"></div>
+                        </div>
+                    </div>
+                </div>

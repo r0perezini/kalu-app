@@ -1,0 +1,42 @@
+<header
+                class="glass-header rounded-b-[2rem] flex-none z-20 relative">
+                <div class="flex items-center justify-between px-6 pt-5 pb-4">
+                    <!-- ESQUERDA: AVATAR + TEXTO -->
+                    <div class="flex items-center gap-3 min-w-0">
+                        <!-- Avatar -->
+                        <div
+                            class="w-12 h-12 rounded-full bg-white/15 border border-white/20 overflow-hidden flex items-center justify-center">
+                            <img id="top-avatar" src
+                                class="w-full h-full object-cover hidden" />
+                            <i id="top-avatar-icon"
+                                class="fas fa-user text-white/70"></i>
+                        </div>
+
+                        <!-- Texto -->
+                        <div class="min-w-0">
+                            <div
+                                class="text-white/80 text-xs font-extrabold tracking-wide">BEM-VINDO,</div>
+                            <div id="top-user-name"
+                                class="text-white text-lg font-extrabold truncate">—</div>
+                        </div>
+                    </div>
+
+                    <!-- DIREITA: 3 PONTOS + POWER -->
+                    <div class="flex items-center gap-2">
+                        <!-- 3 pontinhos -->
+                        <button id="btn-top-menu"
+                            class="w-10 h-10 rounded-full bg-white/15 border border-white/20 flex items-center justify-center active:scale-95 transition-transform"
+                            onclick="window.toggleTopMenu && window.toggleTopMenu()">
+                            <i class="fas fa-ellipsis-v text-white"></i>
+                        </button>
+
+                        <!-- power (o seu já existe; só garanta que continue aqui) -->
+                        <button id="btn-logout"
+                            class="w-10 h-10 rounded-full bg-white/15 border border-white/20 flex items-center justify-center active:scale-95 transition-transform"
+                            onclick="window.doLogout && window.doLogout()">
+                            <i class="fas fa-power-off text-white"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </header>
