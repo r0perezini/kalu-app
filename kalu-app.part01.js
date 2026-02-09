@@ -73,6 +73,7 @@
                 btn.disabled = false
                 document.getElementById('login-screen')
                     .classList.add('hidden');
+                document.getElementById("mount-login")?.classList.add("hidden");
                 document.getElementById('app-container')
                     .classList.remove('hidden');
                 await loadData(true);          // se for async, use await. se não, deixa sem.
